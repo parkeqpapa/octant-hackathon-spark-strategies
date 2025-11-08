@@ -1,0 +1,102 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.4;
+
+interface ISparkVault {
+    error AccessControlBadConfirmation();
+    error AccessControlUnauthorizedAccount(address account, bytes32 neededRole);
+    error AddressEmptyCode(address target);
+    error ERC1967InvalidImplementation(address implementation);
+    error ERC1967NonPayable();
+    error FailedCall();
+    error InvalidInitialization();
+    error NotInitializing();
+    error SafeERC20FailedOperation(address token);
+    error UUPSUnauthorizedCallContext();
+    error UUPSUnsupportedProxiableUUID(bytes32 slot);
+
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares);
+    event DepositCapSet(uint256 oldCap, uint256 newCap);
+    event Drip(uint256 chi, uint256 diff);
+    event Initialized(uint64 version);
+    event Referral(uint16 indexed referral, address indexed owner, uint256 assets, uint256 shares);
+    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);
+    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
+    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
+    event Take(address indexed to, uint256 value);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Upgraded(address indexed implementation);
+    event VsrBoundsSet(uint256 oldMinVsr, uint256 oldMaxVsr, uint256 newMinVsr, uint256 newMaxVsr);
+    event VsrSet(address indexed sender, uint256 oldVsr, uint256 newVsr);
+    event Withdraw(
+        address indexed sender, address indexed receiver, address indexed owner, uint256 assets, uint256 shares
+    );
+
+    function DEFAULT_ADMIN_ROLE() external view returns (bytes32);
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+    function MAX_VSR() external view returns (uint256);
+    function PERMIT_TYPEHASH() external view returns (bytes32);
+    function RAY() external view returns (uint256);
+    function SETTER_ROLE() external view returns (bytes32);
+    function TAKER_ROLE() external view returns (bytes32);
+    function UPGRADE_INTERFACE_VERSION() external view returns (string memory);
+    function allowance(address, address) external view returns (uint256);
+    function approve(address spender, uint256 value) external returns (bool);
+    function asset() external view returns (address);
+    function assetsOf(address owner) external view returns (uint256);
+    function assetsOutstanding() external view returns (uint256);
+    function balanceOf(address) external view returns (uint256);
+    function chi() external view returns (uint192);
+    function convertToAssets(uint256 shares) external view returns (uint256);
+    function convertToShares(uint256 assets) external view returns (uint256);
+    function decimals() external view returns (uint8);
+    function deposit(uint256 assets, address receiver) external returns (uint256 shares);
+    function deposit(uint256 assets, address receiver, uint16 referral) external returns (uint256 shares);
+    function depositCap() external view returns (uint256);
+    function drip() external returns (uint256 nChi);
+    function getImplementation() external view returns (address);
+    function getRoleAdmin(bytes32 role) external view returns (bytes32);
+    function getRoleMember(bytes32 role, uint256 index) external view returns (address);
+    function getRoleMemberCount(bytes32 role) external view returns (uint256);
+    function getRoleMembers(bytes32 role) external view returns (address[] memory);
+    function grantRole(bytes32 role, address account) external;
+    function hasRole(bytes32 role, address account) external view returns (bool);
+    function initialize(address asset_, string memory name_, string memory symbol_, address admin) external;
+    function maxDeposit(address) external view returns (uint256);
+    function maxMint(address) external view returns (uint256);
+    function maxRedeem(address owner) external view returns (uint256);
+    function maxVsr() external view returns (uint256);
+    function maxWithdraw(address owner) external view returns (uint256);
+    function minVsr() external view returns (uint256);
+    function mint(uint256 shares, address receiver, uint16 referral) external returns (uint256 assets);
+    function mint(uint256 shares, address receiver) external returns (uint256 assets);
+    function name() external view returns (string memory);
+    function nonces(address) external view returns (uint256);
+    function nowChi() external view returns (uint256);
+    function permit(address owner, address spender, uint256 value, uint256 deadline, bytes memory signature) external;
+    function permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s)
+        external;
+    function previewDeposit(uint256 assets) external view returns (uint256);
+    function previewMint(uint256 shares) external view returns (uint256);
+    function previewRedeem(uint256 shares) external view returns (uint256 amount);
+    function previewWithdraw(uint256 assets) external view returns (uint256);
+    function proxiableUUID() external view returns (bytes32);
+    function redeem(uint256 shares, address receiver, address owner) external returns (uint256 assets);
+    function renounceRole(bytes32 role, address callerConfirmation) external;
+    function revokeRole(bytes32 role, address account) external;
+    function rho() external view returns (uint64);
+    function setDepositCap(uint256 newCap) external;
+    function setVsr(uint256 newVsr) external;
+    function setVsrBounds(uint256 minVsr_, uint256 maxVsr_) external;
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+    function symbol() external view returns (string memory);
+    function take(uint256 value) external;
+    function totalAssets() external view returns (uint256);
+    function totalSupply() external view returns (uint256);
+    function transfer(address to, uint256 value) external returns (bool);
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+    function upgradeToAndCall(address newImplementation, bytes memory data) external payable;
+    function version() external view returns (string memory);
+    function vsr() external view returns (uint256);
+    function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares);
+}

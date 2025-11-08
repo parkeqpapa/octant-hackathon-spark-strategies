@@ -4,8 +4,8 @@ pragma solidity ^0.8.25;
 import "forge-std/console2.sol";
 import {Test} from "forge-std/Test.sol";
 
-import {YieldDonatingStrategy as Strategy, ERC20} from "../../strategies/yieldDonating/YieldDonatingStrategy.sol";
-import {YieldDonatingStrategyFactory as StrategyFactory} from "../../strategies/yieldDonating/YieldDonatingStrategyFactory.sol";
+import {SparkLendStrategy as Strategy, ERC20} from "../../strategies/yieldDonating/SparkLend/SparkLendStrategy.sol";
+import {YieldDonatingStrategyFactory as StrategyFactory} from "../../strategies/yieldDonating/SparkLend/YieldDonatingStrategyFactory.sol";
 import {IStrategyInterface} from "../../interfaces/IStrategyInterface.sol";
 import {ITokenizedStrategy} from "@octant-core/core/interfaces/ITokenizedStrategy.sol";
 
@@ -58,7 +58,7 @@ contract YieldDonatingSetup is Test, IEvents {
         maxFuzzAmount = 1_000_000 * 10 ** decimals;
 
         // Read yield source from environment
-        yieldSource = vm.envAddress("TEST_YIELD_SOURCE");
+        yieldSource = vm.envAddress("TEST_YIELD_SOURCE_LENDING");
         require(yieldSource != address(0), "TEST_YIELD_SOURCE not set in .env");
 
         // Deploy YieldDonatingTokenizedStrategy implementation

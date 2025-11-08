@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
-import {YieldDonatingStrategy} from "./YieldDonatingStrategy.sol";
-import {IStrategyInterface} from "../../interfaces/IStrategyInterface.sol";
+import {SparkLendStrategy as YieldDonatingStrategy} from "./SparkLendStrategy.sol";
+import {IStrategyInterface} from "../../../interfaces/IStrategyInterface.sol";
 import {YieldDonatingTokenizedStrategy} from "@octant-core/strategies/yieldDonating/YieldDonatingTokenizedStrategy.sol";
 
 contract YieldDonatingStrategyFactory {
