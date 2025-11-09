@@ -1,14 +1,23 @@
-# YieldDonating Strategy Development Guide for Octant
+# YieldDonating Strategy Octant
 
-This repository provides a template for creating **YieldDonating strategies** compatible with Octant's ecosystem using [Foundry](https://book.getfoundry.sh/). YieldDonating strategies donate all generated yield to a donation address.
+This repository contains smart contracts for YieldDonating strategies that
+  integrate with Spark Protocol (SparkLend and SparkSavings). These strategies
+  are built for Octant's ecosystem.
 
-## What is a YieldDonating Strategy?
+  What are the strategies in this repository?
 
-YieldDonating strategies are designed to:
-- Deploy assets into external yield sources (Aave, Compound, Yearn vaults, etc.)
-- Harvest yield and donate 100% of profits to public goods funding
-- Optionally protect users from losses by burning dragonRouter shares
-- Charge NO performance fees to users
+   - SparkLendStrategy: Deploys assets into the SparkLend lending protocol to
+     generate yield.
+   - SparkSavingsStrategy: Deploys assets into the Spark Savings to
+     generate yield.
+
+  Both strategies are of the YieldDonating type, which means they are designed
+  to:
+
+   - Deploy assets into external yield sources (in this case, Spark Protocol).
+   - Harvest yield and donate 100% of the profits to a designated donation
+     address.
+   - Charge NO performance fees to users.
 
 ## Getting Started
 
